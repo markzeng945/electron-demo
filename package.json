@@ -1,0 +1,92 @@
+{
+  "name": "electron-demo",
+  "version": "1.0.0",
+  "description": "electron demo",
+  "main": "main.js",
+  "repository": "https://github.com/markzeng945/electron-demo.git",
+  "author": "mark <markzeng@vectorbuilder.net>",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:dir": "electron-builder --dir"
+  },
+  "devDependencies": {
+    "electron": "^20.1.1",
+    "electron-builder": "^23.3.3"
+  },
+  "build": {
+    "appId": "electronBuilderDemo", 
+    "productName": "electron-builder-demo", 
+    "files": [
+        "build/**/*",
+        "node_modules/**/*",
+        "package.json",
+        "main.js",
+        "preload.js"
+    ],
+    "directories": {  
+        "output": "dist",  
+        "buildResources": "assets" 
+    },
+    "extends": null, 
+    "mac": {  
+        "category": "public.app-category.productivity",
+        "artifactName": "${productName}-${version}-${arch}.${ext}",
+        "target": [
+            "dmg",
+            "zip"
+        ]
+    },
+    "dmg": { 
+        "background": "assets/appdmg.png",
+        "icon": "assets/icon.icns",
+        "iconSize": 100,
+        "contents": [  
+            {
+                "x": 380,
+                "y": 280,
+                "type": "link",
+                "path": "/Applications"
+            },
+            {
+                "x": 110,
+                "y": 280,
+                "type": "file"
+            }
+        ],
+        "window": {
+            "width": 500,
+            "height": 500
+        }
+    },
+    "win": {  
+        "target": [
+            "msi",
+            "nsis",
+            "zip"
+        ],
+        "verifyUpdateCodeSignature": false,  
+        "icon": "assets/icon.ico",
+        "artifactName": "${productName}-Web-Setup-${version}.${ext}"
+    },
+    "nsis": { 
+        "allowToChangeInstallationDirectory": false,
+        "oneClick": false,
+        "perMachine": false
+    },
+    "asar": false,
+    "publish": [
+      {
+        "provider": "github",
+            "owner": "markzeng945",
+            "repo": "electron-demo"
+      }
+    ]
+},
+
+  "dependencies": {
+    "electron-is-dev": "^2.0.0",
+    "electron-updater": "^5.2.1"
+  }
+}
